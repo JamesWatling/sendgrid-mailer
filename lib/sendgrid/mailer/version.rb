@@ -1,5 +1,5 @@
 module Sendgrid
-  module Mailer
-    VERSION = "0.1.0"
+  class Mailer
+    VERSION = "0.1.1"
   end
 end

@@ -7,7 +7,7 @@ module Sendgrid
       @templates = templates
     end
 
-    def self.id(name, locale)
+    def get_id(name, locale)
       [locale, :en].each do |lang|
         output = @templates.try(:[], name).try(:[], lang)
 

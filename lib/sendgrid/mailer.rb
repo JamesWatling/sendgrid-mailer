@@ -1,9 +1,10 @@
 require "sendgrid/mailer/version"
+require "sendgrid/template"
 require 'sendgrid-ruby'
 require 'json'
 
 module Sendgrid
-  module Mailer
+  class Mailer
     include SendGrid
 
     def initialize (api_key, from, bcc)
@@ -12,7 +13,7 @@ module Sendgrid
       @bcc = bcc
     end
 
-    def self.build_mail_json(template_id:, to: nil, from: nil, bcc: nil, substitutions: {}, options: {})
+    def build_mail_json(template_id:, to: nil, from: nil, bcc: nil, substitutions: {}, options: {})
         options = {
           force_send: false,
         }.merge(options)
@@ -91,6 +92,5 @@ module Sendgrid
       def send_grid
         @sendgrid ||= SendGrid::API.new(api_key: API_KEY)
       end
-    end
   end
 end

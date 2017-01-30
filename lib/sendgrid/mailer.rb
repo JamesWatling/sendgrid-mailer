@@ -7,7 +7,7 @@ module Sendgrid
   class Mailer
     include SendGrid
 
-    def initialize (api_key, from, bcc)
+    def initialize(api_key, from, bcc)
       @api_key = api_key
       @from = from
       @bcc = bcc
@@ -52,14 +52,14 @@ module Sendgrid
       end
 
       def build_from(from)
-        parse_email(from || DEFAULT_FROM)
+        parse_email(from || @from)
       end
 
       def build_personalization(to, bcc, substitutions)
         SendGrid::Personalization.new.tap do |p|
           p = build_field(:to, p, to)
 
-          p = build_field(:bcc, p, bcc, DEFAULT_BCC)
+          p = build_field(:bcc, p, bcc, @bcc)
 
           if substitutions
             substitutions.each do |k, v|
@@ -90,7 +90,7 @@ module Sendgrid
       end
 
       def send_grid
-        @sendgrid ||= SendGrid::API.new(api_key: API_KEY)
+        @sendgrid ||= SendGrid::API.new(api_key: @api_key)
       end
   end
 end

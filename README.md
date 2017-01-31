@@ -24,3 +24,23 @@ Allows you to easily find templates and provide variables to the templating syst
   sendgrid_mail
   # creates the json and makes the post request to sendgrid
 ```
+
+
+Simple configuration is as follows
+```
+config/sendgrid_mailer.yml
+default: &default
+  api_key: <%= ENV['SENDGRID_KEY'] %>
+  default_from: 'GuavaPass.com (noreply) <noreply@guavapass.com>'
+  default_bcc: 'test@guavapass.com'
+  templates:
+    email_confirmation:
+      en: 343434-0c05-41a3-a5e5-123123
+    gift_redemption:
+      en: 324234-f2f6-4643-8175-23231
+    gifter_confirmation:
+      en: 324234234-e3e5-47c9-b299-2323
+      fr: 324234234-e3e5-47c9-b299-2323
+    pause_confirmation:
+      en: 123123123-cd74-4826-a779-123123
+```

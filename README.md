@@ -27,7 +27,7 @@ Allows you to easily find templates and provide variables to the templating syst
 
 
 Simple configuration is as follows
-```
+```ruby
 config/sendgrid_mailer.yml
 default: &default
   api_key: <%= ENV['SENDGRID_KEY'] %>

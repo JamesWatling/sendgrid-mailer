@@ -7,16 +7,23 @@ module Sendgrid
   class Mailer
     include SendGrid
 
-    def initialize(api_key, from, bcc)
-      @api_key = api_key
-      @from = from
-      @bcc = bcc
+    def initialize(api_key, from, bcc, sandbox_mode: false, dev_catch_all: false)
+      @api_key       = api_key
+      @from          = from
+      @bcc           = bcc
+      @sandbox_mode  = sandbox_mode
+      @dev_catch_all = dev_catch_all
     end
 
     def build_mail_json(template_id:, to: nil, from: nil, bcc: nil, substitutions: {}, options: {})
         options = {
-          force_send: false,
+          force_send: @sandbox_mode,
         }.merge(options)
+
+        if @dev_catch_all
+          to = @dev_catch_all
+          bcc = nil
+        end
 
         SendGrid::Mail.new.tap do |m|
           m.from = build_from(from)

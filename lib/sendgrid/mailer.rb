@@ -118,7 +118,6 @@ module Sendgrid
     def parse_email(value)
       output = if value.is_a? Hash
                  raise 'No key :email found' unless value[:email]
-
                  value
                elsif split = value.match(/(.+?)<(.+)>/)
                  {
@@ -127,7 +126,7 @@ module Sendgrid
                  }
                else
                  { email: value.strip }
-              end
+               end
 
       SendGrid::Email.new(output)
     end

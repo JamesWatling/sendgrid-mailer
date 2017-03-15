@@ -3,17 +3,13 @@ require 'spec_helper'
 require 'sendgrid/mailer'
 
 describe Sendgrid::Mailer do
-
   include Mail::Matchers
 
   it 'has a version number' do
-
     expect(Sendgrid::Mailer::VERSION).not_to be nil
-
   end
 
   describe '#send_mail' do
-
     subject { Sendgrid::Mailer.new(api_key, from, bcc, env: env, delivery_method: delivery_method, sandbox_mode: sandbox_mode, dev_catch_all: dev_catch_all) }
 
     let(:env) { :test }
@@ -40,7 +36,6 @@ describe Sendgrid::Mailer do
     end
 
     context 'with smtp as delivery method' do
-
       let(:delivery_method) { :smtp }
 
       before do
@@ -50,11 +45,9 @@ describe Sendgrid::Mailer do
       it { is_expected.to have_sent_email }
       it { should have_sent_email.from(from) }
       it { should have_sent_email.to(to) }
-
     end
 
     context 'with api as delivery method' do
-
       let(:delivery_method) { :api }
       let(:sendgrid_api) { instance_double(SendGrid::API) }
       let(:client) { double('client') }
@@ -67,31 +60,31 @@ describe Sendgrid::Mailer do
 
       let(:expected_requested_body) do
         {
-          "from" => {
-            "email" => from
+          'from' => {
+            'email' => from
           },
-          "personalizations" => [
+          'personalizations' => [
             {
-              "to" => [
+              'to' => [
                 {
-                  "email" => to
+                  'email' => to
                 }
               ],
-              "bcc" => [
+              'bcc' => [
                 {
-                  "email" => bcc
+                  'email' => bcc
                 }
               ],
-              "substitutions" => {
-                "{{foo}}" => "foo",
-                "{{bar}}" => "bar"
+              'substitutions' => {
+                '{{foo}}' => 'foo',
+                '{{bar}}' => 'bar'
               }
             }
           ],
-          "template_id" => template_id,
-          "mail_settings" => {
-            "sandbox_mode" => {
-              "enable" => sandbox_mode
+          'template_id' => template_id,
+          'mail_settings' => {
+            'sandbox_mode' => {
+              'enable' => sandbox_mode
             }
           }
         }
@@ -104,17 +97,12 @@ describe Sendgrid::Mailer do
         expect(send).to receive(:post).with(request_body: expected_requested_body)
         subject.send_mail(options)
       end
-
     end
 
     context 'with unknown delivery method' do
-
       let(:delivery_method) { :foo }
 
       it { expect { subject.send_mail(options) }.to raise_error(RuntimeError) }
-
     end
-
   end
-
 end

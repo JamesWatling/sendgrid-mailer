@@ -15,7 +15,7 @@ describe Sendgrid::Mailer do
     let(:env) { :test }
     let(:sandbox_mode) { false }
     let(:dev_catch_all) { false }
-    let(:template_id) { ENV['TEMPLATE_ID'] }
+    let(:template_id) { ENV['TEST_TEMPLATE_ID'] }
     let(:api_key) { ENV['SENDGRID_API_KEY'] }
     let(:from) { 'from@example.com' }
     let(:to) { 'to@example.com' }

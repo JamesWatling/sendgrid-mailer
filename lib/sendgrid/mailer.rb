@@ -4,7 +4,6 @@ require 'sendgrid/template'
 require 'sendgrid-ruby'
 require 'json'
 require 'mail'
-require 'byebug'
 
 module Sendgrid
   class Mailer

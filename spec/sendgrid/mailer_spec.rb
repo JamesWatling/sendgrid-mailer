@@ -10,11 +10,11 @@ describe Sendgrid::Mailer do
   end
 
   describe '#send_mail' do
-    subject { Sendgrid::Mailer.new(api_key, from, bcc, env: env, delivery_method: delivery_method, sandbox_mode: sandbox_mode, dev_catch_all: dev_catch_all) }
+    subject { Sendgrid::Mailer.new(api_key, from, bcc, env: env, delivery_method: delivery_method, sandbox_mode: sandbox_mode, force_mail_to: force_mail_to) }
 
     let(:env) { :test }
     let(:sandbox_mode) { false }
-    let(:dev_catch_all) { false }
+    let(:force_mail_to) { false }
     let(:template_id) { ENV['TEST_TEMPLATE_ID'] }
     let(:api_key) { ENV['SENDGRID_API_KEY'] }
     let(:from) { 'from@example.com' }

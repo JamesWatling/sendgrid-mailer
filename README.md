@@ -54,7 +54,7 @@ gem 'sendgrid-mailer'
       from,
       bcc,
       sandbox_mode: sandbox_mode,
-      dev_catch_all: dev_catch_all,
+      force_mail_to: force_mail_to,
       smtp_settings: smtp_settings
     )
     SendgridTemplates = Sendgrid::Template.new(templates)

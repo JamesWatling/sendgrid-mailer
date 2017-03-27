@@ -1,6 +1,6 @@
+# frozen_string_literal: true
 module Sendgrid
   class Template
-
     attr_reader :templates
 
     def initialize(templates)

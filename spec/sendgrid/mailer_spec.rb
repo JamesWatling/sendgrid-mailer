@@ -23,7 +23,7 @@ RSpec.describe Sendgrid::Mailer, type: :initializer do
 
       subject { mailer.build_mail_json(mail_data) }
 
-      it { is_expected.to eq({"from"=>{"email"=>"noreply@guavapass.com", "name"=>"GuavaPass.com (noreply)"}, "personalizations"=>[{"to"=>[{"email"=>"justin@guavapass.com"}], "bcc"=>[{"email"=>"dev_catchall@guavapass.com"}], "substitutions"=>{"{{username}}"=>"meowmixultra", "{{confirmation_url}}"=>"https://guavapass.com"}}], "template_id"=>"1459d62f-0c05-41a3-a5e5-875124647940", "mail_settings"=>{"sandbox_mode"=>{"enable"=>true}}}) }
+      it { is_expected.to eq({"from"=>{"email"=>"noreply@guavapass.com", "name"=>"GuavaPass.com (noreply)"}, "personalizations"=>[{"to"=>[{"email"=>"justin@guavapass.com"}], "bcc"=>[{"email"=>"dev_catchall@guavapass.com"}], "substitutions"=>{"{{username}}"=>"meowmixultra", "{{confirmation_url}}"=>"https://guavapass.com"}}], "template_id"=>"1459d62f-0c05-41a3-a5e5-875124647940"}) }
     end
 
     context '1 recipient with name' do
@@ -40,7 +40,7 @@ RSpec.describe Sendgrid::Mailer, type: :initializer do
 
       subject { mailer.build_mail_json(mail_data) }
 
-      it { is_expected.to eq({"from"=>{"email"=>"noreply@guavapass.com", "name"=>"GuavaPass.com (noreply)"}, "personalizations"=>[{"to"=>[{"email"=>"justin@guavapass.com", "name"=>"Justin"}], "bcc"=>[{"email"=>"dev_catchall@guavapass.com"}], "substitutions"=>{"{{username}}"=>"meowmixultra", "{{confirmation_url}}"=>"https://guavapass.com"}}], "template_id"=>"1459d62f-0c05-41a3-a5e5-875124647940", "mail_settings"=>{"sandbox_mode"=>{"enable"=>true}}}) }
+      it { is_expected.to eq({"from"=>{"email"=>"noreply@guavapass.com", "name"=>"GuavaPass.com (noreply)"}, "personalizations"=>[{"to"=>[{"email"=>"justin@guavapass.com", "name"=>"Justin"}], "bcc"=>[{"email"=>"dev_catchall@guavapass.com"}], "substitutions"=>{"{{username}}"=>"meowmixultra", "{{confirmation_url}}"=>"https://guavapass.com"}}], "template_id"=>"1459d62f-0c05-41a3-a5e5-875124647940"}) }
     end
 
     context 'multi recipient with multi-format' do
@@ -57,7 +57,7 @@ RSpec.describe Sendgrid::Mailer, type: :initializer do
 
       subject { mailer.build_mail_json(mail_data) }
 
-      it { is_expected.to eq("from"=>{"email"=>"noreply@guavapass.com", "name"=>"GuavaPass.com (noreply)"}, "personalizations"=>[{"to"=>[{"email"=>"justin@guavapass.com", "name"=>"Justin"}, {"email"=>"james@guavapass.com"}, {"email"=>"whatwhat@inthebutt.com", "name"=>"Kenny Southpark"}], "bcc"=>[{"email"=>"dev_catchall@guavapass.com"}], "substitutions"=>{"{{username}}"=>"meowmixultra", "{{confirmation_url}}"=>"https://guavapass.com"}}], "template_id"=>"1459d62f-0c05-41a3-a5e5-875124647940", "mail_settings"=>{"sandbox_mode"=>{"enable"=>true}}) }
+      it { is_expected.to eq("from"=>{"email"=>"noreply@guavapass.com", "name"=>"GuavaPass.com (noreply)"}, "personalizations"=>[{"to"=>[{"email"=>"justin@guavapass.com", "name"=>"Justin"}, {"email"=>"james@guavapass.com"}, {"email"=>"whatwhat@inthebutt.com", "name"=>"Kenny Southpark"}], "bcc"=>[{"email"=>"dev_catchall@guavapass.com"}], "substitutions"=>{"{{username}}"=>"meowmixultra", "{{confirmation_url}}"=>"https://guavapass.com"}}], "template_id"=>"1459d62f-0c05-41a3-a5e5-875124647940") }
     end
 
     context 'no :email, throws error' do

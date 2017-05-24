@@ -36,7 +36,7 @@ module Sendgrid
             m.attachments = build_attachment(opt)
           end
 
-          if !options[:force_send] && !Rails.env.production?
+          if !options[:force_send] && (defined?(Rails) && !Rails.env.production?)
             m.mail_settings = SendGrid::MailSettings.new.tap do |s|
               s.sandbox_mode = SendGrid::SandBoxMode.new(enable: true)
             end

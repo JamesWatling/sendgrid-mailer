@@ -2,6 +2,7 @@ require "sendgrid/mailer/version"
 require "sendgrid/template"
 require 'sendgrid-ruby'
 require 'json'
+require 'base64'
 
 module Sendgrid
   class Mailer
@@ -30,6 +31,10 @@ module Sendgrid
           m.template_id = template_id if template_id
 
           m.personalizations = build_personalization(to, bcc, substitutions)
+
+          options[:attachments].each do |opt|
+            m.attachments = build_attachment(opt)
+          end
 
           if !options[:force_send] && (defined?(Rails) && !Rails.env.production?)
             m.mail_settings = SendGrid::MailSettings.new.tap do |s|
@@ -77,6 +82,13 @@ module Sendgrid
             end
           end
         end
+      end
+
+      def build_attachment(option)
+        attachment = SendGrid::Attachment.new
+        attachment.content = Base64.strict_encode64(option[:content])
+        attachment.filename = option[:filename]
+        attachment
       end
 
       def parse_email(value)

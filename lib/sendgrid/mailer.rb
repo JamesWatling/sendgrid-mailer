@@ -32,7 +32,7 @@ module Sendgrid
 
           m.personalizations = build_personalization(to, bcc, substitutions)
 
-          options[:attachments].each do |opt|
+          options[:attachments]&.each do |opt|
             m.attachments = build_attachment(opt)
           end
 

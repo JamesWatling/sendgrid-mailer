@@ -30,7 +30,7 @@ module Sendgrid
           m.from = build_from(from)
           m.template_id = template_id if template_id
 
-          m.personalizations = build_personalization(to, bcc, substitutions)
+          m.personalizations = build_personalization(to, bcc, nil_to_zero_value(substitutions))
 
           options[:attachments]&.each do |opt|
             m.attachments = build_attachment(opt)
@@ -50,6 +50,12 @@ module Sendgrid
       end
 
       private
+
+      def nil_to_zero_value(substitutions)
+        params = substitutions.dup
+        params.each { |k,v| params[k] = "" if v.nil? }
+        params
+      end
 
       def build_field(field_name, object, values, defaults = nil)
         if values && values.is_a?(Array)

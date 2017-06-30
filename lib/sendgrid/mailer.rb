@@ -83,7 +83,7 @@ module Sendgrid
             substitutions.each do |k, v|
               p.substitutions = SendGrid::Substitution.new(
                                   key: "{{#{k}}}",
-                                  value: v
+                                  value: v.respond_to?(:strip) ? v.strip : v
                                 )
             end
           end

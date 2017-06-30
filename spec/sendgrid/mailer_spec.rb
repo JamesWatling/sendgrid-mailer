@@ -94,5 +94,24 @@ RSpec.describe Sendgrid::Mailer, type: :initializer do
         expect(subject).to eq("from"=>{"email"=>"noreply@guavapass.com", "name"=>"GuavaPass.com (noreply)"}, "personalizations"=>[{"to"=>[{"email"=>"justin@guavapass.com", "name"=>"Justin"}, {"email"=>"james@guavapass.com"}, {"email"=>"whatwhat@inthebutt.com", "name"=>"Kenny Southpark"}], "bcc"=>[{"email"=>"dev_catchall@guavapass.com"}], "substitutions"=>{"{{username}}"=>"", "{{confirmation_url}}"=>""}}], "template_id"=>"1459d62f-0c05-41a3-a5e5-875124647940")
       end
     end
+
+    context 'when substitutions value has trailing/leading spaces' do
+      let(:mail_data) do
+        {
+          to: ['Justin <justin@guavapass.com>', 'james@guavapass.com', { email: 'whatwhat@inthebutt.com', name: 'Kenny Southpark'}],
+          template_id: '1459d62f-0c05-41a3-a5e5-875124647940',
+          substitutions: {
+            username: 'meowmixultra   ',
+            confirmation_url: '   https://guavapass.com',
+          },
+        }
+      end
+
+      subject { mailer.build_mail_json(mail_data) }
+      it 'strips the leading/trailing spaces' do
+        expect(subject).to eq("from"=>{"email"=>"noreply@guavapass.com", "name"=>"GuavaPass.com (noreply)"}, "personalizations"=>[{"to"=>[{"email"=>"justin@guavapass.com", "name"=>"Justin"}, {"email"=>"james@guavapass.com"}, {"email"=>"whatwhat@inthebutt.com", "name"=>"Kenny Southpark"}], "bcc"=>[{"email"=>"dev_catchall@guavapass.com"}], "substitutions"=>{"{{username}}"=>"meowmixultra", "{{confirmation_url}}"=>"https://guavapass.com"}}], "template_id"=>"1459d62f-0c05-41a3-a5e5-875124647940")
+      end
+
+    end
   end
 end

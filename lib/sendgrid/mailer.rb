@@ -16,7 +16,7 @@ module Sendgrid
       @dev_catch_all = dev_catch_all
     end
 
-    def build_mail_json(template_id:, to: nil, from: nil, bcc: nil, substitutions: {}, options: {})
+    def build_mail_json(template_id:, to: nil, from: nil, reply_to: nil, bcc: nil, substitutions: {}, options: {})
         options = {
           force_send: @sandbox_mode,
         }.merge(options)
@@ -34,6 +34,10 @@ module Sendgrid
 
           options[:attachments]&.each do |opt|
             m.attachments = build_attachment(opt)
+          end
+
+          if reply_to
+            m.reply_to = Email.new(email: reply_to)
           end
 
           if !options[:force_send] && (defined?(Rails) && !Rails.env.production?)
